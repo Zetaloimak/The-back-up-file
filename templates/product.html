@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}Product · PriditorTypeshit{% endblock %}
+
+{% block content %}
+<header class="hero compact">
+  <div class="blob b1" aria-hidden="true"></div>
+  <div class="blob b2" aria-hidden="true"></div>
+
+  <p class="eyebrow"><span class="dot" aria-hidden="true"></span><span>Our product</span></p>
+  <h1 class="wordmark sm" aria-label="PTS Server">
+    <span class="line">PTS</span>
+    <span class="line accent">Server</span>
+  </h1>
+  <p class="tagline">A server for your PriditorTypeshit program. Choose the plan that fits how much storage you need.</p>
+</header>
+
+<main class="block tight">
+  <div class="plan-grid">
+
+    <article class="tile plan reveal">
+      <span class="dl-badge">Plan 1</span>
+      <h2>PTS Server</h2>
+      <div class="plan-storage"><b>1</b><span>GB</span></div><span class="plan-price"><b>99 ฿</b><span>/month</span></span>
+      <p class="plan-desc">A starter server for small projects, with admin tools and server verify included.</p>
+      <ul class="plan-list">
+        <li><strong>Admin function:</strong> view the user accounts on your server</li>
+        <li><strong>Server verify:</strong> check access codes from your program</li>
+        <li>Sign-up protected by reCAPTCHA</li>
+        <li>Passwords stored as secure hashes</li>
+        <li>Download page for PTS ver 1 and ver 2</li>
+      </ul>
+      <a class="btn-primary plan-btn" href="{{ url_for('sell', plan=1) }}">Order Plan 1 <span aria-hidden="true">→</span></a>
+    </article>
+
+    <article class="tile plan plan-large reveal" style="--d:.1s">
+      <span class="dl-badge">Plan 2</span>
+      <h2>PTS Server</h2>
+      <div class="plan-storage"><b>100</b><span>GB</span></div><span class="plan-price"><b>159 ฿</b><span>/month</span></span>
+      <p class="plan-desc">Everything in Plan 1, plus full admin tools and plenty of room for logs and backups.</p>
+      <ul class="plan-list">
+        <li>Everything in Plan 1</li>
+        <li><strong>Full admin function:</strong> reset passwords, disable accounts, and review sign-ups</li>
+        <li><strong>Server verify:</strong> room for many users and many checks</li>
+        <li>Room for logs and backups</li>
+        <li>Support from our team</li>
+      </ul>
+      <a class="btn-primary plan-btn" href="{{ url_for('sell', plan=2) }}">Order Plan 2 <span aria-hidden="true">→</span></a>
+    </article>
+
+    <article class="tile plan reveal" style="--d:.2s">
+      <span class="dl-badge">Plan 3</span>
+      <h2>PTS Server</h2>
+      <div class="plan-storage"><b>500</b><span>GB</span></div><span class="plan-price"><b>199 ฿</b><span>/month</span></span>
+      <p class="plan-desc">For growing projects with many users, long logs, and large backups.</p>
+      <ul class="plan-list">
+        <li>Everything in Plan 2</li>
+        <li><strong>Five times the storage</strong> of Plan 2</li>
+        <li><strong>Server verify:</strong> built for large user lists</li>
+        <li>Priority support from our team</li>
+      </ul>
+      <a class="btn-primary plan-btn" href="{{ url_for('sell', plan=3) }}">Order Plan 3 <span aria-hidden="true">→</span></a>
+    </article>
+
+    <article class="tile plan reveal" style="--d:.3s">
+      <span class="dl-badge">Plan 4</span>
+      <h2>PTS Server</h2>
+      <div class="plan-storage"><b>1</b><span>TB</span></div><span class="plan-price"><b>259 ฿</b><span>/month</span></span>
+      <p class="plan-desc">Our 1 TB plan for busy servers that keep a long history of logs and backups.</p>
+      <ul class="plan-list">
+        <li>Everything in Plan 3</li>
+        <li><strong>Ten times the storage</strong> of Plan 2</li>
+        <li>Long history of logs and backups</li>
+        <li>Help with setup from our team</li>
+      </ul>
+      <a class="btn-primary plan-btn" href="{{ url_for('sell', plan=4) }}">Order Plan 4 <span aria-hidden="true">→</span></a>
+    </article>
+
+    <article class="tile plan reveal" style="--d:.4s">
+      <span class="dl-badge">Plan 5</span>
+      <h2>PTS Server</h2>
+      <div class="plan-storage"><b>5</b><span>TB</span></div><span class="plan-price"><b>299 ฿</b><span>/month</span></span>
+      <p class="plan-desc">For companies running several servers. Need something different? Ask us for a custom plan.</p>
+      <ul class="plan-list">
+        <li>Everything in Plan 4</li>
+        <li><strong>Admin tools</strong> for every account on your servers</li>
+        <li><strong>Custom features</strong> built for your team</li>
+        <li>Dedicated support from our team</li>
+      </ul>
+      <a class="btn-primary plan-btn" href="{{ url_for('sell', plan=5) }}">Order Plan 5 <span aria-hidden="true">→</span></a>
+    </article>
+
+    <article class="tile plan reveal" style="--d:.4s">
+      <span class="dl-badge">Plan 6</span>
+      <h2>PTS Server</h2>
+      <div class="plan-storage"><b>6</b><span>TB</span></div><span class="plan-price"><b>399 ฿</b><span>/month</span></span>
+      <p class="plan-desc">For companies running several servers. Need something different? Ask us for a custom plan.</p>
+      <ul class="plan-list">
+        <li>Everything in Plan 5</li>
+        <li><strong>Admin tools</strong> for every account on your servers</li>
+        <li><strong>Custom features</strong> built for your team</li>
+        <li>Dedicated support from our team</li>
+      </ul>
+      <a class="btn-primary plan-btn" href="{{ url_for('sell', plan=6) }}">Order Plan 6 <span aria-hidden="true">→</span></a>
+    </article>
+
+  </div>
+</main>
+
+<section class="block" id="Functions">
+  <div class="head reveal">
+    <span class="kicker">What's inside</span>
+    <h2>Functions</h2>
+    <p class="lead">Both plans run on the same core. Here is what each part does for you.</p>
+  </div>
+
+  <div class="func-grid">
+    <article class="tile func reveal">
+      <h3>Admin function</h3>
+      <p>See every account that has signed up and when it was created, and manage them from one place.</p>
+    </article>
+    <article class="tile func reveal" style="--d:.1s">
+      <h3>Server verify</h3>
+      <p>blank--ค่อยกลับมาคิดอีกที</p>
+    </article>
+    <article class="tile func reveal" style="--d:.2s">
+      <h3>Secure accounts</h3>
+      <p>blank--ค่อยกลับมาคิดอีกที</p>
+    </article>
+    <article class="tile func reveal" style="--d:.3s">
+      <h3>Own database</h3>
+      <p>All user data is kept in a SQLite database on your server, so it is simple to back up and move.</p>
+    </article>
+    <article class="tile func reveal" style="--d:.4s">
+      <h3>And more</h3>
+      <p>New functions are added over time. Ask us about custom features for your server.</p>
+    </article>
+  </div>
+</section>
+
+<section class="block tight">
+  <a class="tile web-tile reveal" href="{{ url_for('index') }}#Contact">
+    <small>Not sure yet?</small>
+    <strong>Contact us to order more plan</strong>
+  </a>
+</section>
+{% endblock %}

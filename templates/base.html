@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#FF6B1A">
+<meta name="description" content="PriditorTypeshit (PTS) is a server tool you can use before hosting a server.">
+<title>{% block title %}PriditorTypeshit{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Unbounded:wght@500;700;900&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% block styles %}{% endblock %}
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body data-user="{{ user or '' }}">
+
+<div class="progress" aria-hidden="true"></div>
+
+<nav class="topbar" id="topbar" aria-label="Main">
+  <a class="brand" href="{{ url_for('index') }}"><span class="led" aria-hidden="true"></span>PTS</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="{{ url_for('index') }}#top">Home</a></li>
+    <li><a href="{{ url_for('product') }}" data-login-required{% if request.endpoint == 'product' %} class="active" aria-current="page"{% endif %}>Product</a></li>
+    <li><a href="{{ url_for('index') }}#About">About PTS</a></li>
+    <li><a href="{{ url_for('index') }}#How">How to use</a></li>
+    <li><a href="{{ url_for('index') }}#Contact">Contact us</a></li>
+    <li><a href="{{ url_for('index') }}#Team">Team</a></li>
+    {% if user %}
+    <li><a href="{{ url_for('download') }}"{% if request.endpoint == 'download' %} class="active" aria-current="page"{% endif %}>Download</a></li>
+    {% endif %}
+  </ul>
+  <div class="nav-right">
+      {% if user %}
+        {% if is_admin %}
+        <a class="nav-user is-admin" href="{{ url_for('admin') }}" title="Admin mode: {{ user }}">{{ user }}</a>
+        {% else %}
+        <span class="nav-user" title="Logged in as {{ user }}">{{ user }}</span>
+      {% endif %}
+    {% endif %}
+    <button class="btn-small" type="button" id="navLogin">{{ 'Log out' if user else 'Log in' }}</button>
+    <button class="menu-btn" type="button" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span></button>
+  </div>
+</nav>
+
+{% block content %}{% endblock %}
+
+<footer>
+  <p>© <span data-year>2026</span> <strong>PriditorTypeshit</strong> — Made by Kasidit Rakphan</p>
+  <a href="{{ url_for('index') }}#top">Back to top ↑</a>
+</footer>
+
+<script src="{{ url_for('static', filename='common.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

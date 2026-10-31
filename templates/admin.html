@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Admin · PriditorTypeshit{% endblock %}
+
+{% block content %}
+<header class="hero compact">
+  <div class="blob b1" aria-hidden="true"></div>
+  <div class="blob b2" aria-hidden="true"></div>
+
+  <p class="eyebrow"><span class="dot admin-dot" aria-hidden="true"></span><span>Admin mode · {{ user }}</span></p>
+  <h1 class="wordmark sm" aria-label="Admin panel">
+    <span class="line">Admin</span>
+    <span class="line accent">Panel</span>
+  </h1>
+  <p class="tagline">Only admin accounts can see this page.</p>
+</header>
+
+<main class="block tight">
+  <div class="admin-stats">
+    <div class="tile admin-stat reveal"><span>Total users</span><b>{{ users|length }}</b></div>
+    <div class="tile admin-stat reveal" style="--d:.1s"><span>Admin accounts</span><b>{{ admin_count }}</b></div>
+    <div class="tile admin-stat reveal" style="--d:.2s"><span>Newest user</span><b>{{ newest }}</b></div>
+  </div>
+
+  <div class="admin-table-wrap reveal">
+    <table class="admin-table">
+      <thead>
+        <tr><th>#</th><th>Username</th><th>Role</th><th>Joined</th></tr>
+      </thead>
+      <tbody>
+        {% for u in users %}
+        <tr>
+          <td>{{ u['id'] }}</td>
+          <td><strong>{{ u['username'] }}</strong></td>
+          <td>
+            {% if u['username']|lower in admin_names %}
+              <span class="role-tag is-admin">Admin</span>
+            {% else %}
+              <span class="role-tag">User</span>
+            {% endif %}
+          </td>
+          <td>{{ u['created_at'] }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="4">No accounts yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</main>
+{% endblock %}

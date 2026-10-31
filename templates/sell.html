@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Choose a plan · PriditorTypeshit{% endblock %}
+
+{% block styles %}
+<style>
+  .plan.is-selected { outline: 3px solid #FF6B1A; outline-offset: 4px; }
+  .sel-tag { margin-left: 8px; font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #FF6B1A; }
+</style>
+{% endblock %}
+
+{% block content %}
+<header class="hero compact">
+  <div class="blob b1" aria-hidden="true"></div>
+  <div class="blob b2" aria-hidden="true"></div>
+
+  <p class="eyebrow"><span class="dot" aria-hidden="true"></span><span>Step 1 of 2 · Choose a plan</span></p>
+  <h1 class="wordmark sm" aria-label="Choose your plan">
+    <span class="line">Choose</span>
+    <span class="line accent">Your Plan</span>
+  </h1>
+  <p class="tagline">Pick the storage you need, then continue to payment.</p>
+</header>
+
+<main class="block tight">
+  <div class="plan-grid">
+    {% for plan_id, plan in plans.items() %}
+    {% set is_selected = (selected == plan_id) %}
+    <article class="tile plan reveal{% if is_selected %} is-selected{% endif %}" id="plan-{{ plan_id }}">
+      <span class="dl-badge">Plan {{ plan_id }}</span>{% if is_selected %}<span class="sel-tag">Your choice</span>{% endif %}
+      <h2>PTS Server</h2>
+      <div class="plan-storage"><b>{{ plan.amount }}</b><span>{{ plan.unit }}</span></div>
+      <span class="plan-price"><b>{{ plan.price }} ฿</b><span>/month</span></span>
+      <a class="btn-primary plan-btn" href="{{ url_for('pay', plan_id=plan_id) }}">
+        {{ 'Continue with this plan' if is_selected else 'Choose Plan ' ~ plan_id }} <span aria-hidden="true">→</span>
+      </a>
+    </article>
+    {% endfor %}
+  </div>
+
+  <p class="dl-note"><a href="{{ url_for('product') }}">← Compare plan details</a></p>
+</main>
+{% endblock %}

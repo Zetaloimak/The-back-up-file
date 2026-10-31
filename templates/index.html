@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<header class="hero" id="top">
+  <div class="blob b1" aria-hidden="true"></div>
+  <div class="blob b2" aria-hidden="true"></div>
+
+  <p class="eyebrow"><span class="dot" aria-hidden="true"></span>
+    <span>{% if user %}Welcome, {{ user }}{% else %}Welcome user{% endif %}</span>
+  </p>
+  <h1 class="wordmark" aria-label="PriditorTypeshit!!">
+    <span class="line">Priditor</span>
+    <span class="line accent">Typeshit<span class="bang" aria-hidden="true">!!</span></span>
+  </h1>
+  <p class="tagline">A server tool you can use before hosting a server.</p>
+  <div class="cta">
+    <button class="btn-primary" type="button" id="openAuth">Start <span aria-hidden="true">→</span></button>
+    <a class="btn-ghost" href="{{ url_for('product') }}" data-login-required>Product</a>
+    <a class="btn-ghost" href="#How">How to use</a>
+  </div>
+
+  <div class="hero-foot">
+    <p>Made by <strong>Zetaloimak</strong></p>
+    <p class="scroll-hint">Scroll</p>
+  </div>
+</header>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-run">
+    <div class="ticker-group">
+      <span>Before you hosting server</span><span>PriditorTypeshit</span><span>Host any server with
+        us</span><span>Unlimited time pack</span>
+    </div>
+    <div class="ticker-group">
+      <span>Before you hosting server</span><span>PriditorTypeshit</span><span>Host any server with
+        us</span><span>Unlimited time pack</span>
+    </div>
+  </div>
+</div>
+
+<section class="block products" id="Products">
+  <div class="head reveal">
+    <span class="kicker">Our products</span>
+    <h2>PTS Servers</h2>
+    <p class="lead">Two plans for your PriditorTypeshit projects. Pick the storage you need.</p>
+  </div>
+
+  <div class="pp-grid">
+    <article class="tile pp-card reveal">
+      <span class="dl-badge">Plan 1</span>
+      <h3>PTS Server</h3>
+      <div class="plan-storage"><b>1</b><span>GB</span></div>
+      <p class="pp-desc">A starter server with the admin function and server verify.</p>
+      <a class="pp-link" href="{{ url_for('product') }}">View plan <span aria-hidden="true">→</span></a>
+    </article>
+
+    <article class="tile pp-card reveal" style="--d:.1s">
+      <span class="dl-badge">Plan 2</span>
+      <h3>PTS Server</h3>
+      <div class="plan-storage"><b>100</b><span>GB</span></div>
+      <p class="pp-desc">Room for many users, logs, and backups, with full admin tools.</p>
+      <a class="pp-link" href="{{ url_for('product') }}">View plan <span aria-hidden="true">→</span></a>
+    </article>
+  </div>
+
+  <div class="pp-more reveal">
+    <a class="btn-primary" id="seeMore" href="{{ url_for('product') }}">See more <span aria-hidden="true">→</span></a>
+  </div>
+</section>
+
+<section class="block" id="About">
+  <div class="head reveal">
+    <span class="kicker">01 — About</span>
+    <h2>About PTS</h2>
+    <p class="lead">PriditorTypeshit (PTS) is a server tool that users can use before hosting a server.</p>
+  </div>
+  <div class="bento">
+    <article class="tile big reveal">
+      <p>Created by <strong>Zetaloimak</strong>, also known as Kasidit Rakphan, under <strong>Game Studio.H</strong>.
+      </p>
+      <p>The project was created on 28/03/2026 using C, and later upgraded to Python in version 1.5.</p>
+    </article>
+    <article class="tile stat reveal" style="--d:.1s"><span>Started</span><b>28/03/26</b></article>
+    <article class="tile stat reveal" style="--d:.2s"><span>First written in</span><b>C</b></article>
+    <article class="tile stat reveal" style="--d:.3s"><span>Upgraded to Python in</span><b>v1.5</b></article>
+  </div>
+</section>
+
+<section class="block" id="How">
+  <div class="head reveal">
+    <span class="kicker">02 — Guide</span>
+    <h2>How to Use</h2>
+  </div>
+  <div class="track reveal" aria-hidden="true"><span class="fill"></span></div>
+  <ol class="steps">
+    <li class="step reveal" style="--d:.05s"><span class="num">1</span>
+      <p>Open the webpage.</p>
+    </li>
+    <li class="step reveal" style="--d:.15s"><span class="num">2</span>
+      <p>Download it.</p>
+    </li>
+    <li class="step reveal" style="--d:.25s"><span class="num">3</span>
+      <p>You can use our free trial or buy it.</p>
+    </li>
+    <li class="step reveal" style="--d:.35s"><span class="num">4</span>
+      <p>When you buy it you can use it for an limit period up to oue package.</p>
+    </li>
+    <li class="step reveal" style="--d:.45s"><span class="num">5</span>
+      <p>Enjoy the benefits of PriditorTypeshit!</p>
+    </li>
+  </ol>
+</section>
+
+<section class="block" id="Contact">
+  <div class="head reveal">
+    <span class="kicker">03 — Contact</span>
+    <h2>Contact Us</h2>
+  </div>
+  <div class="contact">
+    <div class="tile phone-tile reveal">
+      <p class="label">PriditorTypeshit Service</p>
+      <p class="phone">0638055598</p>
+      <button class="copy" type="button" data-copy="0638055598">Copy number</button>
+    </div>
+    <p class="or">or</p>
+    <a class="tile web-tile reveal" href="{{ url_for('static', filename='contact.html') }}" style="--d:.1s">
+      <small>Web</small>
+      <strong>Click this link</strong>
+    </a>
+  </div>
+</section>
+
+<section class="block" id="Team">
+  <div class="head reveal">
+    <span class="kicker">04 — Team</span>
+    <h2>Support By</h2>
+  </div>
+  <div class="team">
+    <div class="tile member reveal">
+      <span class="mono" aria-hidden="true">KR</span>
+      <div><strong>Kasidit Rakphan</strong><small class="role">Programmer</small></div>
+    </div>
+    <div class="tile member reveal" style="--d:.1s">
+      <span class="mono" aria-hidden="true">SL</span>
+      <div><strong>Siripreeya Limpornsemanon</strong><small class="role">Programmer Partner</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGIN / SIGN-IN POPUP -->
+<div class="auth" id="auth" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+  <button class="auth-back" type="button" id="authClose">← Back to site</button>
+  <div class="auth-card">
+    <p class="auth-brand" id="authTitle">Priditor<span>Typeshit</span></p>
+
+    <div class="tabs" role="tablist">
+      <button class="tab" type="button" role="tab" aria-selected="true" data-mode="login">Log in</button>
+      <button class="tab" type="button" role="tab" aria-selected="false" data-mode="signin">Sign in</button>
+    </div>
+
+    <form class="auth-form" id="loginForm" novalidate>
+      <div class="field">
+        <label for="loginUser">Username</label>
+        <input id="loginUser" type="text" autocomplete="username">
+      </div>
+      <div class="field">
+        <label for="loginPass">Password</label>
+        <input id="loginPass" type="password" autocomplete="current-password">
+      </div>
+      <button class="btn-primary" type="submit">Log in</button>
+      <a class="forgot" href="#" id="forgotLink">Forgot password?</a>
+    </form>
+
+    <form class="auth-form" id="signinForm" novalidate hidden>
+      <div class="field">
+        <label for="signUser">Username</label>
+        <input id="signUser" type="text" autocomplete="username">
+      </div>
+      <div class="field">
+        <label for="signPass">Password (6+ characters)</label>
+        <input id="signPass" type="password" autocomplete="new-password">
+      </div>
+      <div class="field">
+        <span class="field-label">Security check</span>
+        <div class="recaptcha-box" id="recaptchaBox" data-sitekey="{{ site_key }}"></div>
+      </div>
+      <button class="btn-primary" type="submit">Sign in</button>
+    </form>
+
+    <p class="auth-msg" id="authMsg" aria-live="polite"></p>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='index.js') }}"></script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
+{% endblock %}

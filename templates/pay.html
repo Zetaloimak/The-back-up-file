@@ -1,0 +1,336 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout · PriditorTypeshit{% endblock %}
+
+{% block styles %}
+<style>
+  [hidden] { display: none !important; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  .co {
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: 100vh;
+    padding-top: 96px;
+    background: #fff;
+    color: #1a1a1a;
+    font-family: 'Archivo', system-ui, sans-serif;
+  }
+  .co svg { width: 22px; height: 22px; flex-shrink: 0; }
+  .co h1, .co h2 { font-family: 'Archivo', sans-serif; letter-spacing: 0; text-transform: none; }
+  @media (min-width: 900px) {
+    .co { grid-template-columns: 1.15fr 1fr; }
+  }
+
+  /* ---------- left: checkout form ---------- */
+  .co-main { padding: 16px clamp(20px, 5vw, 72px) 72px; }
+
+  .co-back { display: inline-flex; color: #1a1a1a; padding: 6px; margin-left: -6px; }
+  .co-back svg { width: 28px; height: 28px; }
+
+  .co-logo {
+    display: inline-grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    margin-top: 12px;
+    border-radius: 14px;
+    background: #FF6B1A;
+    color: #fff;
+    font: 900 .8rem/1 'Unbounded', sans-serif;
+    letter-spacing: .02em;
+  }
+
+  .co-hi { margin: 36px 0 6px; font-size: 1.05rem; color: #555; }
+  .co-title { margin: 0 0 32px; font-size: clamp(1.6rem, 3.4vw, 2.1rem); font-weight: 400; line-height: 1.2; }
+  .co-title b { font-weight: 700; }
+
+  /* payment method list */
+  .co-group {
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+    border: 1.5px solid #8a8a94;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .co-opt {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 22px;
+    border-top: 1px solid #e3e3e8;
+    cursor: pointer;
+    transition: background .15s;
+  }
+  .co-opt:first-child { border-top: 0; }
+  .co-opt:hover { background: #fafafa; }
+  .co-opt.is-selected { background: #fff5ee; }
+  .co-opt.is-disabled { cursor: not-allowed; opacity: .55; }
+  .co-opt input { width: 20px; height: 20px; margin: 0; accent-color: #FF6B1A; flex-shrink: 0; }
+  .co-opt-icon {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 40px;
+    border-radius: 8px;
+    background: #e9ecf2;
+    flex-shrink: 0;
+  }
+  .co-opt-text { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+  .co-opt-name { font-size: 1.05rem; font-weight: 600; }
+  .co-opt small { color: #666; font-size: .85rem; }
+  .co-tag {
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: #8a5a00;
+    background: #fff0cc;
+    padding: 4px 8px;
+    border-radius: 999px;
+  }
+
+  /* instructions for the chosen method */
+  .co-details {
+    margin-top: 16px;
+    padding: 20px 22px;
+    border-radius: 14px;
+    background: #f7f7f9;
+    font-size: .95rem;
+    line-height: 1.6;
+    color: #333;
+  }
+  .co-details p { margin: 0 0 10px; }
+  .co-details p:last-child { margin: 0; }
+  #payHint { margin: 0; color: #666; }
+  .co-qr {
+    display: grid;
+    place-items: center;
+    width: 200px;
+    height: 200px;
+    margin: 14px 0;
+    padding: 16px;
+    border: 2px dashed #c4c4cc;
+    border-radius: 12px;
+    background: #fff;
+    color: #888;
+    text-align: center;
+    font-size: .85rem;
+  }
+  .co-bank { display: grid; grid-template-columns: auto 1fr; gap: 8px 18px; margin: 12px 0 16px; }
+  .co-bank dt { color: #666; }
+  .co-bank dd { margin: 0; font-weight: 600; }
+
+  /* personal information */
+  .co-section { margin-top: 36px; }
+  .co-section h2 { margin: 0 0 10px; font-size: 1.2rem; font-weight: 600; }
+  .co-person { display: flex; align-items: center; gap: 10px; margin: 0; color: #333; }
+  .co-person svg { color: #8a8a94; }
+
+  /* pay button */
+  .co-pay {
+    display: block;
+    width: 100%;
+    margin-top: 36px;
+    padding: 18px;
+    border: 0;
+    border-radius: 14px;
+    background: #FF6B1A;
+    color: #fff;
+    font: 700 1.05rem/1 'Archivo', sans-serif;
+    cursor: pointer;
+    transition: transform .15s, background .15s;
+  }
+  .co-pay:hover:not(:disabled) { transform: translateY(-1px); background: #e85c0c; }
+  .co-pay:disabled { background: #c9ccd3; cursor: not-allowed; }
+  .co-pay-note { margin: 12px 0 0; text-align: center; font-size: .85rem; color: #666; }
+
+  /* ---------- right: order summary ---------- */
+  .co-side {
+    background: #f7f7f9;
+    border-top: 1px solid #ececf0;
+    padding: 48px clamp(20px, 4vw, 56px) 72px;
+  }
+  @media (min-width: 900px) {
+    .co-side { border-top: 0; border-left: 1px solid #ececf0; padding-top: 72px; }
+  }
+  .co-side-title { margin: 0 0 36px; font-size: 1.6rem; font-weight: 400; }
+  .co-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #e3e3e8;
+  }
+  .co-line-name { margin: 0 0 6px; font-size: 1.05rem; font-weight: 600; }
+  .co-line-sub { margin: 0; font-size: .9rem; color: #666; }
+  .co-line-price { margin: 0; font-size: 1.05rem; white-space: nowrap; }
+  .co-change { display: inline-block; margin-top: 12px; color: #d9540a; font-weight: 600; font-size: .9rem; text-decoration: none; }
+  .co-change:hover { text-decoration: underline; }
+  .co-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 28px;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="co">
+
+  <!-- LEFT: payment form -->
+  <div class="co-main">
+    <a class="co-back" href="{{ url_for('sell', plan=plan_id) }}" aria-label="Back to plans">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+    </a>
+    <div class="co-logo" aria-hidden="true">PTS</div>
+
+    <p class="co-hi">Hi {{ user }},</p>
+    <h1 class="co-title">Pay PTS Server <b>{{ plan.price }} ฿</b></h1>
+
+    <fieldset class="co-group">
+      <legend class="sr-only">Payment method</legend>
+
+      <label class="co-opt is-disabled">
+        <span class="co-opt-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        </span>
+        <span class="co-opt-text">
+          <span class="co-opt-name">Card</span>
+        </span>
+        <span class="co-tag">Coming soon</span>
+        <input type="radio" name="method" value="card" disabled>
+      </label>
+
+      <label class="co-opt">
+        <span class="co-opt-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM20 20h1M17 17h4v4h-4z"/></svg>
+        </span>
+        <span class="co-opt-text">
+          <span class="co-opt-name">PromptPay</span>
+          <small>Scan a QR code with your banking app</small>
+        </span>
+        <input type="radio" name="method" value="promptpay">
+      </label>
+
+      <label class="co-opt">
+        <span class="co-opt-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 10l9-6 9 6M5 10v8M9 10v8M15 10v8M19 10v8M3 21h18"/></svg>
+        </span>
+        <span class="co-opt-text">
+          <span class="co-opt-name">Bank transfer</span>
+          <small>Transfer to our bank account</small>
+        </span>
+        <input type="radio" name="method" value="bank">
+      </label>
+    </fieldset>
+
+    <!-- Instructions for the chosen method -->
+    <div class="co-details" aria-live="polite">
+      <p id="payHint">Choose a payment method to see how to pay.</p>
+
+      <div data-panel="promptpay" hidden>
+        <p>Open your banking app, choose PromptPay, and scan the code below. Pay exactly <b>{{ plan.price }} ฿</b>.</p>
+        <!-- PAYMENT: replace the box below with your PromptPay QR image, for example:
+             <img src="/static/promptpay.png" alt="PromptPay QR code" width="200"> -->
+        <div class="co-qr">Your PromptPay QR code goes here</div>
+        <p>After paying, press Pay below to email us your payment slip.</p>
+      </div>
+
+      <div data-panel="bank" hidden>
+        <p>Transfer exactly <b>{{ plan.price }} ฿</b> to this account:</p>
+        <!-- PAYMENT: replace these placeholders with your real bank details. -->
+        <dl class="co-bank">
+          <dt>Bank</dt><dd>[Your bank name]</dd>
+          <dt>Account name</dt><dd>[Account name]</dd>
+          <dt>Account number</dt><dd>[XXX-X-XXXXX-X]</dd>
+        </dl>
+        <p>After paying, press Pay below to email us your payment slip.</p>
+      </div>
+    </div>
+
+    <!-- Personal information -->
+    <section class="co-section">
+      <h2>Personal information</h2>
+      <p class="co-person">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>
+        <span>{{ user }} · PTS account</span>
+      </p>
+    </section>
+
+    <!-- Pay button: unlocks after a payment method is chosen -->
+    <button class="co-pay" type="button" id="payBtn" disabled
+      data-email="priditortypeshit@gmail.com"
+      data-subject="PTS order: Plan {{ plan_id }} ({{ user }})"
+      data-order="I would like to order PTS Server Plan {{ plan_id }}: {{ plan.amount }} {{ plan.unit }} storage, {{ plan.price }} ฿ per month."
+      data-user="{{ user }}">
+      Pay {{ plan.price }} ฿
+    </button>
+    <p class="co-pay-note">This opens your email app so you can send your order and payment slip.</p>
+  </div>
+
+  <!-- RIGHT: order summary -->
+  <aside class="co-side" aria-label="Order summary">
+    <h2 class="co-side-title">Summary</h2>
+
+    <div class="co-line">
+      <div>
+        <p class="co-line-name">PTS Server · Plan {{ plan_id }}</p>
+        <p class="co-line-sub">{{ plan.amount }} {{ plan.unit }} storage • Billed monthly</p>
+        <a class="co-change" href="{{ url_for('sell', plan=plan_id) }}">Change plan</a>
+      </div>
+      <p class="co-line-price">{{ plan.price }} ฿</p>
+    </div>
+
+    <div class="co-total">
+      <span>Total per month</span>
+      <b>{{ plan.price }} ฿</b>
+    </div>
+  </aside>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(() => {
+  'use strict';
+
+  const radios = [...document.querySelectorAll('input[name="method"]')];
+  const panels = [...document.querySelectorAll('[data-panel]')];
+  const hint = document.getElementById('payHint');
+  const payBtn = document.getElementById('payBtn');
+
+  // Show the chosen method's instructions and unlock the Pay button
+  function showMethod(value) {
+    radios.forEach(r => r.closest('.co-opt').classList.toggle('is-selected', r.checked));
+    panels.forEach(p => { p.hidden = p.dataset.panel !== value; });
+    hint.hidden = true;
+    payBtn.disabled = false;
+  }
+
+  radios.forEach(r => r.addEventListener('change', () => {
+    if (r.checked) showMethod(r.value);
+  }));
+
+  payBtn.addEventListener('click', () => {
+    const chosen = radios.find(r => r.checked);
+    if (!chosen) return;
+
+    // PAYMENT: when you connect a payment provider (Omise, Stripe, etc.),
+    // replace the email step below with that provider's checkout call.
+    // Until then, open an email to PTS with the order details.
+    const label = chosen.closest('.co-opt').querySelector('.co-opt-name').textContent;
+    const { email, subject, order, user } = payBtn.dataset;
+    const body = `${order}\n\nUsername: ${user}\nPayment method: ${label}\n\nPlease activate my order. I will attach my payment slip.`;
+
+    location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
+})();
+</script>
+{% endblock %}

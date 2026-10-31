@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Download · PriditorTypeshit{% endblock %}
+
+{% block content %}
+<header class="hero compact">
+  <div class="blob b1" aria-hidden="true"></div>
+  <div class="blob b2" aria-hidden="true"></div>
+
+  <p class="eyebrow"><span class="dot" aria-hidden="true"></span><span>Welcome, {{ user }}</span></p>
+  <h1 class="wordmark sm" aria-label="PriditorTypeshit 2">
+    <span class="line">Priditor</span>
+    <span class="line accent">Typeshit 2</span>
+  </h1>
+  <p class="tagline">Choose a version below. Each option opens its project on GitHub.</p>
+</header>
+
+<main class="block tight">
+  <div class="dl-grid">
+    <a class="tile dl-card reveal" href="https://github.com/Zetaloimak/Priditortypeshit-version1" target="_blank" rel="noopener">
+      <span class="dl-badge">Version 1</span>
+      <h2>PriditorTypeshit ver 1</h2>
+      <p class="dl-lang">C ver</p>
+      <p class="dl-desc">Source and download for the C version.</p>
+      <span class="dl-go">Continue on GitHub <span aria-hidden="true">→</span></span>
+    </a>
+
+    <a class="tile dl-card reveal" style="--d:.1s" href="https://github.com/Zetaloimak/Priditortypeshit-version2" target="_blank" rel="noopener">
+      <span class="dl-badge">Version 2</span>
+      <h2>PriditorTypeshit ver 2</h2>
+      <p class="dl-lang">Python ver</p>
+      <p class="dl-desc">Source and download for the Python version.</p>
+      <span class="dl-go">Continue on GitHub <span aria-hidden="true">→</span></span>
+    </a>
+  </div>
+  <p class="dl-note">Each version opens in a new tab on GitHub.</p>
+</main>
+{% endblock %}
